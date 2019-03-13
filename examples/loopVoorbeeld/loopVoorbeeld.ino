@@ -1,5 +1,6 @@
-int MaxPins = 13;
+int MaxPins = 13; 
 int MinPins = 13;
+// Set your pins here.
 
 void setup() {
   Serial.begin(9600);
