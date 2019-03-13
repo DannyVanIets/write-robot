@@ -45,24 +45,32 @@ void setup() {
 
 String Word() {
   Serial.print("Welk woord moet er geschreven worden? \n");
-  boolean input; 
+  boolean input;
   input = true;
-  
-    // read the incoming byte:
-    while (input){ // Loops until word is given.
+
+  // read the incoming byte:
+  while (input) { // Loops until word is given.
 
 
-    if (Serial.available() > 0){ // If word is given
+    if (Serial.available() > 0) { // If word is given
       input = false; // Makes input false and stops the loop (Prevents multiple words)
       letters = Serial.readString(); // Input variable
+
+      
+
+
     }
 
-     
-    }
-    // say what you got:
-    Serial.print("Het volgende woord wordt geschreven: \n");
-    Serial.print(letters); // Prints the chosen word.
-  
+
+  }
+  // say what you got:
+  Serial.print("Het volgende woord wordt geschreven: \n");
+  Serial.print(letters); // Prints the chosen word.
+
+        for(char& c : letters){
+        
+      }
+
 }
 
 
