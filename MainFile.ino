@@ -276,6 +276,7 @@ void afterLetter() {// Function is used for positioning the robot between every 
    forward(5);
    rotate(-90);
    forward(10);
+   pendown();
     
 }
 
