@@ -332,12 +332,7 @@ void lettersDone() {
 // Functions for all letters ------------------------------------------------------------
 // They will be called in the function: Word
 void letterA() {
-<<<<<<< HEAD
-  circle();
-  halfcircle(90);
-  halfcircle(-180);
-=======
-
+  
   pendown();
   
   rotate(45);
@@ -352,9 +347,6 @@ void letterA() {
   backward(5);
 
   pendown();
-
->>>>>>> 8489a3f23e333efd972472f75a42b868dd1d5707
-  forward(10);
   
 }
 
@@ -365,9 +357,7 @@ void letterB() {
   forward(10);
   rotate(90);
   forward(5);
-<<<<<<< HEAD
 
-=======
   halfcircle(1);
   
   rotate(180);
@@ -380,7 +370,6 @@ void letterB() {
 
   forward(10);
   
->>>>>>> 8489a3f23e333efd972472f75a42b868dd1d5707
   afterLetter();
 }
 
@@ -548,17 +537,17 @@ void letterK() {
 
   pendown();
 
-  forward(6,5);
+  forward(7);
 
   penup();
 
   rotate(180);
-  forward(6,5);
+  forward(7);
   rotate(-90);
   
   pendown();
 
-  forward(6,5);
+  forward(7);
   
   afterLetter();
 }
@@ -742,7 +731,7 @@ void letterW() {
   rotate(90);
   forward(6);
   rotate(-135);
-  forward(10)
+  forward(10);
 
   penup();
 
