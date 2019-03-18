@@ -309,6 +309,8 @@ void lettersDone() {
 // They will be called in the function: Word
 void letterA() {
 
+  pendown();
+  
   rotate(45);
   forward(14);
   rotate(45);
@@ -339,30 +341,112 @@ void letterA() {
 }
 
 void letterB() {
+
+  pendown();
+  
   forward(10);
   rotate(90);
   forward(5);
+  halfcircle(1);
+  
+  rotate(180);
+  forward(2);
+  halfcircle(1);
+  forward(7);
+
+  penup();
+  rotate(180);
+
+  forward(10);
   
   afterLetter();
 }
 
 void letterC() {
-  Serial.print("De robot schrijft letter C \n");
+
+  forward(5);
+  rotate(180);
+
+  pendown();
+
+  halfcircle(-1);  
+
+  penup();
+
+  rotate(90);
+  
   afterLetter();
 }
 
-void letterD() {
-  Serial.print("De robot schrijft letter D \n");
+void letterD() {  
   afterLetter();
 }
 
 void letterE() {
-  Serial.print("De robot schrijft letter E \n");
+
+  pendown();
+
+  forward(10);
+  rotate(90);
+  forward(5);
+
+  penup();
+
+  rotate(180);
+  forward(5);
+  rotate(-90);
+  forward(5);
+  rotate(-90);
+
+  pendown();
+
+  forward(2);
+
+  penup();
+
+  rotate(180);
+  forward(2);
+  rotate(-90);
+  forward(5);
+  rotate(-90);
+
+  pendown();
+
+  forward(5);
+
+  penup();
+   
   afterLetter();
 }
 
 void letterF() {
-  Serial.print("De robot schrijft letter F \n");
+
+  pendown();
+
+  forward(10);
+  rotate(90);
+  forward(5);
+
+  penup();
+
+  rotate(180);
+  forward(5);
+  rotate(-90);
+  forward(5);
+  rotate(-90);
+
+  pendown();
+
+  forward(2);
+
+  penup();
+
+  rotate(180);
+  forward(2);
+  rotate(-90);
+  forward(5);
+  rotate(-90);
+  
   afterLetter();
 }
 
@@ -372,12 +456,54 @@ void letterG() {
 }
 
 void letterH() {
-  Serial.print("De robot schrijft letter H \n");
+
+  pendown();
+
+  forward(10);
+
+  penup();
+
+  rotate(180);
+  forward(5);
+  rotate(-90);
+  
+  pendown();
+
+  forward(5);
+  rotate(-90);
+  forward(5);
+  rotate(180);
+  forward(10);
+
+  penup();
+  
   afterLetter();
 }
 
 void letterI() {
-  Serial.print("De robot schrijft letter I \n");
+
+  forward(10);
+  rotate(90);
+
+  pendown();
+
+  forward(6);
+
+  penup();
+
+  rotate(180);
+  forward(3);
+  rotate(-90);
+
+  pendown();
+
+  forward(10);
+
+  rotate(-90);
+  forward(3);
+  rotate(180);
+  forward(6);
+  
   afterLetter();
 }
 
@@ -387,27 +513,97 @@ void letterJ() {
 }
 
 void letterK() {
-  Serial.print("De robot schrijft letter K \n");
+
+  pendown();
+
+  forward(10);
+
+  penup();
+
+  rotate(180);
+  forward(5);
+  rotate(135);
+
+  pendown();
+
+  forward(6,5);
+
+  penup();
+
+  rotate(180);
+  forward(6,5);
+  rotate(-90);
+  
+  pendown();
+
+  forward(6,5);
+  
   afterLetter();
 }
 
 void letterL() {
-  Serial.print("De robot schrijft letter L \n");
+
+  pendown();
+
+  forward(10);
+
+  penup();
+
+  rotate(180);
+  forward(10);
+  rotate(-90);
+
+  pendown();
+
+  forward(5);
+  
   afterLetter();
 }
 
 void letterM() {
-  Serial.print("De robot schrijft letter M \n");
+  
+  pendown();
+
+  forward(10);
+  rotate(135);
+  forward(12);
+  rotate(-90);
+  forward(12);
+  rotate(135);
+  forward(10);
+  
+  
   afterLetter();
 }
 
 void letterN() {
-  Serial.print("De robot schrijft letter N \n");
+
+  pendown();
+
+  forward(10);
+  rotate(135);
+  forward(12);
+  rotate(-135);
+  forward(10);
+
+  penup();
+
+  rotate(180);
+  
   afterLetter();
 }
 
 void letterO() {
-  Serial.print("De robot schrijft letter O \n");
+
+  rotate(45);
+
+  forward(5);
+
+  pendown();
+  circle();
+
+  penup();
+  forward(5);
   afterLetter();
 }
 
@@ -417,12 +613,47 @@ void letterP() {
 }
 
 void letterQ() {
-  Serial.print("De robot schrijft letter Q \n");
+
+  rotate(90);
+  forward(5);
+  rotate(-90);
+
+  pendown();
+
+  forward(3);
+  rotate(90);
+  circle();
+
+  penup();
+
+  rotate(90);
+  
   afterLetter();
 }
 
 void letterR() {
-  Serial.print("De robot schrijft letter R \n");
+  pendown();
+
+  forward(10);
+  
+  rotate(90);
+  forward(5);
+  halfcircle(1);
+  forward(5);
+
+  penup();
+
+  rotate(180);
+  forward(5);
+  rotate(45);
+  
+  pendown();
+
+  forward(6);  
+
+  penup();
+  rotate(-45);
+  
   afterLetter();
 }
 
@@ -432,7 +663,24 @@ void letterS() {
 }
 
 void letterT() {
-  Serial.print("De robot schrijft letter T \n");
+
+  rotate(90);
+  forward(5);
+  rotate(-90);
+
+  pendown();
+
+  forward(10);
+  rotate(-90);
+
+  forward(5);
+  rotate(180);
+  forward(10);
+
+  penup();
+
+  rotate(90);
+  
   afterLetter();
 }
 
@@ -442,26 +690,112 @@ void letterU() {
 }
 
 void letterV() {
-  Serial.print("De robot schrijft letter V \n");
+
+  forward(10);
+  rotate(135);
+
+  pendown();
+
+  forward(12);
+  rotate(-90);
+  forward(12);
+
+  penup();
+
+  rotate(135);
+  
   afterLetter();
 }
 
 void letterW() {
-  Serial.print("De robot schrijft letter W \n");
+
+  forward(10);
+  rotate(180);
+
+  pendown();
+
+  forward(10);
+  rotate(-135);
+  forward(6);
+  rotate(90);
+  forward(6);
+  rotate(-135);
+  forward(10)
+
+  penup();
+
+  rotate(180);
+  
   afterLetter();
 }
 
 void letterX() {
-  Serial.print("De robot schrijft letter X \n");
+
+  rotate(45);
+
+  pendown();
+
+  forward(12);
+
+  penup();
+
+  rotate(-135);
+  forward(10);
+  rotate(-135);
+
+  pendown();
+
+  forward(12);
+
+  penup();
+  rotate(35);
+    
   afterLetter();
 }
 
 void letterY() {
-  Serial.print("De robot schrijft letter Y \n");
+
+  rotate(90);
+  forward(5);
+  rotate(-90);
+
+  pendown();
+
+  forward(7);
+  rotate(-45);
+  forward(4);
+
+  penup();
+  
+  rotate(180);
+  forward(4);
+  rotate(-90);
+
+  pendown();
+
+  forward(4);
+
+  penup();
+
+  rotate(135);
+  
   afterLetter();
 }
 
 void letterZ() {
-  Serial.print("De robot schrijft letter Z \n");
+
+  forward(10);
+  rotate(90);
+
+  pendown();
+
+  forward(10);
+  rotate(135);
+  forward(12);
+  rotate(-135);
+  forward(10);
+
+  penup();
+  
   afterLetter();
 }
