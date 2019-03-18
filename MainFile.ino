@@ -2,17 +2,19 @@
 Servo pen;
 
 String woord = "a"; // Set your word here
-int fullCircleTime; //time robot needs to do a full circle
+int fullCircleTime = 1855; //time robot needs to do a full circle
+int i = 0;
+
 
 uint8_t vooruit = HIGH;
 uint8_t achteruit = LOW;
 
 int segmentA = 2;
 int segmentC = 3;
-int motorlinks = 4;
-int richtingmotorlinks = 5;
-int richtingmotorrechts = 6;
-int motorrechts = 7;
+int motorlinks = 5;
+int richtingmotorlinks = 4;
+int richtingmotorrechts = 7;
+int motorrechts = 6;
 int segmentB = 8;
 int segmentD = 9;
 int segmentE = 10;
@@ -27,7 +29,7 @@ uint8_t servomotor = A5;
 void setup() {
   pen.attach(A2);
   Serial.begin(9600);
-  
+
   // Setup for pins
   pinMode(motorlinks, OUTPUT);
   pinMode(motorrechts, OUTPUT);
@@ -52,29 +54,30 @@ void loop() {
 }
 
 void buttonPressed() {
-  
+
   int buttonState = digitalRead(button);
-  int i = 0;
-  
+
+
   if ((buttonState == 1) && (i <= 0)) {
     Word();
     i++;
-  } 
+  }
 }
 
 
 String Word() {
- 
-  firstLetter();
-  
+
+  // firstLetter();
+
   for (char& c : woord) {
-  
+    Serial.print(c);
     char i = c;
-  
+
+
     // If statements to check which functions need to run.
-    if (i == 'a') {
+    if (c == 'a') {
+      Serial.print(c);
       letterA();
-  
     }
     if (i == 'b') {
       letterB();
@@ -152,7 +155,9 @@ String Word() {
       letterZ();
     }
   }
-lettersDone(); // Robot is done writing and goes in to a corner.
+  
+  Serial.print("Klaar");
+  // lettersDone(); // Robot is done writing and goes in to a corner.
 }
 
 
@@ -161,85 +166,104 @@ lettersDone(); // Robot is done writing and goes in to a corner.
 
 int forward(int cm) { // Function to call when u want the robot to drive forward
 
-  int i;
-
-  while (i < (cm * 1000)){
-    digitalWrite(richtingmotorlinks, vooruit);
-    digitalWrite(richtingmotorrechts, vooruit);
-    analogWrite(motorlinks, 128);
-    analogWrite(motorrechts, 128);
+  int i = 0;
+  while (i < (cm * 10)) {
+    digitalWrite(richtingmotorlinks, HIGH);
+    digitalWrite(richtingmotorrechts, HIGH);
+    analogWrite(motorlinks, 255);
+    analogWrite(motorrechts, 255);
+    i++;
+    Serial.println(i);
   }
+  motoruit();
 }
 
 
 int backward(int cm) {// Function to call when u want the robot to drive backwards
 
-  int i;
+  int i = 0;
 
-  while (i < (cm * 1000)){
-    digitalWrite(richtingmotorlinks, achteruit);
-    digitalWrite(richtingmotorrechts, achteruit);
-    analogWrite(motorlinks, 128);
-    analogWrite(motorrechts, 128);
-  }
-}
-
-int rotate(int degrees){// Function to call when u want the robot to drive forward
-
-  if(degrees > 0){
-
-    digitalWrite(richtingmotorlinks, vooruit);
-    digitalWrite(richtingmotorrechts, achteruit);
+  while (i < (cm * 10)) {
+    digitalWrite(richtingmotorlinks, LOW);
+    digitalWrite(richtingmotorrechts, LOW);
     analogWrite(motorlinks, 255);
     analogWrite(motorrechts, 255);
-  
+    i++;
+    Serial.println(i);
   }
-   if(degrees <= 0){
-
-    digitalWrite(richtingmotorlinks, achteruit);
-    digitalWrite(richtingmotorrechts, vooruit);
-    analogWrite(motorlinks, 255);
-    analogWrite(motorrechts, 255);
-  
-  }
+  motoruit();
 }
 
+void motoruit() {
+    analogWrite(motorlinks, 0);
+    analogWrite(motorrechts, 0);
+}
+
+int rotate(int rotation) { // Function to call when u want the robot to drive forward
+  int i = 0;
+  if (rotation > 0) {
+
+    while (i < (rotation * 5)) {
+
+      digitalWrite(richtingmotorlinks, HIGH);
+      digitalWrite(richtingmotorrechts, LOW);
+      analogWrite(motorlinks, 255);
+      analogWrite(motorrechts, 255);
+      i++;
+      Serial.println(i);
+    }
+    motoruit();
+  }
+  if (rotation <= 0) {
+
+    while (i < (rotation * 5)) {
+      digitalWrite(richtingmotorlinks, LOW);
+      digitalWrite(richtingmotorrechts, HIGH);
+      analogWrite(motorlinks, 255);
+      analogWrite(motorrechts, 255);
+      i++;
+      Serial.println(i);
+
+    }
+    motoruit();
+  }
+}
 void circle() {// Function to call when u want the robot to draw a circle
 
- int i;
-  
-  while(i < fullCircleTime){
-      digitalWrite(richtingmotorlinks, achteruit);
-      digitalWrite(richtingmotorrechts, vooruit);
-      analogWrite(motorlinks, 128);
-      analogWrite(motorrechts, 255);
-      i++;
+  int i = 0;
+  while (i < fullCircleTime) {
+    digitalWrite(richtingmotorlinks, HIGH);
+    analogWrite(motorlinks, 255);
+    i++;
+    Serial.println(i);
   }
+  motoruit();
 }
-  
+
 int halfcircle(int degrees) {// Function to call when u want the robot to draw half a circle
-  
-  int i;
-  
-   if(degrees > 0){
-    while(i < (fullCircleTime/2)){
-      digitalWrite(richtingmotorlinks, achteruit);
-      digitalWrite(richtingmotorrechts, vooruit);
-      analogWrite(motorlinks, 128);
+
+  int i = 0;
+
+  if (degrees > 0) {
+    while (i < (fullCircleTime / 2)) {
+
+      digitalWrite(richtingmotorlinks, HIGH);
+      analogWrite(motorlinks, 255);
+      i++;
+      Serial.println(i);
+    }
+    motoruit();
+  }
+  if (degrees <= 0) {
+    while (i < (fullCircleTime / 2)) {
+      digitalWrite(richtingmotorrechts, HIGH);
       analogWrite(motorrechts, 255);
       i++;
+      Serial.println(i);
     }
+    motoruit();
   }
-   if(degrees <= 0){
-    while(i < (fullCircleTime/2)){
-      digitalWrite(richtingmotorlinks, vooruit);
-      digitalWrite(richtingmotorrechts, achteruit);
-      analogWrite(motorlinks, 255);
-      analogWrite(motorrechts, 128);
-      i++;
-    }
-  }
-  
+
 }
 
 void penup() {// Function to call when u want the robot to pull the pen up
@@ -254,95 +278,72 @@ void pendown() {// Function to call when u want the robot to push the pen down
 
 void firstLetter() {// Function is used for positioning the robot for the first letter
   // robot starts with this function
-   forward(5);
-   rotate(-90);
-   forward(10);
-   pendown();
+  forward(5);
+  rotate(-90);
+  forward(10);
+  pendown();
 }
- 
+
 void afterLetter() {// Function is used for positioning the robot between every letter
   penup();
   boolean lineFound = false;
-  
-  while (!lineFound){
-    forward(1);
-      if ((digitalRead(lijn1) == LOW) && (digitalRead(lijn2) == LOW) && (digitalRead(lijn3) == LOW)) {
-        forward(2);
-        lineFound = true;
-      } 
-    }
 
-   rotate(-90);
-   forward(5);
-   rotate(-90);
-   forward(10);
-   pendown();
-    
+  while (!lineFound) {
+    forward(1);
+    if ((digitalRead(lijn1) == LOW) && (digitalRead(lijn2) == LOW) && (digitalRead(lijn3) == LOW)) {
+      forward(2);
+      lineFound = true;
+    }
+  }
+
+  rotate(-90);
+  forward(5);
+  rotate(-90);
+  forward(10);
+  pendown();
+
 }
 
 void lettersDone() {
   penup();
   boolean lineFound = false;
   boolean endFound = false;
-  
-  while (!lineFound){
-    forward(1);
-      if ((digitalRead(lijn1) == LOW) && (digitalRead(lijn2) == LOW) && (digitalRead(lijn3) == LOW)) {
-        forward(2);
-        lineFound = true;
-      } 
-    }
-    
-   rotate(-90);
 
-   while (!endFound){
+  while (!lineFound) {
     forward(1);
-      if ((digitalRead(lijn1) == LOW) && (digitalRead(lijn2) == LOW) && (digitalRead(lijn3) == LOW)) {
-        forward(2);
-        endFound = true;
-        Serial.end();
-      } 
-   }
+    if ((digitalRead(lijn1) == LOW) && (digitalRead(lijn2) == LOW) && (digitalRead(lijn3) == LOW)) {
+      forward(2);
+      lineFound = true;
+    }
+  }
+
+  rotate(-90);
+
+  while (!endFound) {
+    forward(1);
+    if ((digitalRead(lijn1) == LOW) && (digitalRead(lijn2) == LOW) && (digitalRead(lijn3) == LOW)) {
+      forward(2);
+      endFound = true;
+      Serial.end();
+    }
+  }
 }
 
 // Functions for all letters ------------------------------------------------------------
 // They will be called in the function: Word
 void letterA() {
-
-  rotate(45);
-  forward(14);
-  rotate(45);
-
-  penup();
-  
-  rotate(90);
-  forward(5);
-  rotate(90);
-  backward(5);
-
-  pendown();
-
+  circle();
+  halfcircle(90);
+  halfcircle(-180);
   forward(10);
-
-  penup();
-
-  backward(5);
-  rotate(90);
-  forward(5);
-  rotate(90);
   
-  rotate(45);
-  forward(14);
-  rotate(45);
-  
-  afterLetter(); // Make sure this is the last function called in each letter function.
 }
 
 void letterB() {
   forward(10);
   rotate(90);
   forward(5);
-  
+
   afterLetter();
 }
 
