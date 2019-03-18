@@ -1,0 +1,24 @@
+int rechts = 0;
+int links = 0;
+int midden = 0;
+void setup()
+{
+    Serial.begin(9600);
+    pinMode(A4, INPUT);
+    pinMode(A3, INPUT);
+    pinMode(A2, INPUT);
+}
+
+void loop()
+{
+    links = analogRead(A2);
+    midden = analogRead(A4);
+    rechts = analogRead(A3);
+    Serial.println("links " + links);
+    delay(1000);
+    Serial.println("midden " + midden);
+        delay(1000);
+    Serial.println("rechts " + rechts);
+        delay(1000);
+
+}
