@@ -399,7 +399,7 @@ void firstLetter() {// Function is used for positioning the robot for the first 
 
       forward(5.0);
       rotate(90);
-      forward(10.0);
+      displayForward()
       turnLineFound = true;
     }
     else {
