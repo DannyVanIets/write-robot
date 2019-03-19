@@ -1,8 +1,10 @@
 #include "Servo.h"
 Servo pen;
 
-String woord = "b"; // Set your word here
-int fullCircleTime = 1267; //time robot needs to do a full circle
+int multiply = 1;
+
+String woord = "a"; // Set your word here
+int fullCircleTime = 1200; //time robot needs to do a full circle
 
 int i = 0;
 int l = 0;
@@ -67,8 +69,10 @@ void setup() {
   // Assign pinmode
   pinMode(14, OUTPUT); //ground
   pinMode(15, OUTPUT); //ground
+  pendown();
 
 }
+
 // Segments
 
 
@@ -115,8 +119,6 @@ void setSegments(int n) {
 }
 
 // End of segments
-
-
 void loop() {
   buttonPressed(); // Keeps running the function to check if the button is pressed.
 }
@@ -126,7 +128,6 @@ void buttonPressed() {
   int buttonState = digitalRead(button);
 
   if ((buttonState == 1) && (i <= 0)) {
-    pendown();
     Word();
     i++;
   }
@@ -135,7 +136,6 @@ void buttonPressed() {
 
 String Word() {
 
-  firstLetter();
 
   while (woord[count] != '\0') {
     count++;
@@ -239,8 +239,8 @@ String Word() {
 
 double forward(double cm) { // Function to call when u want the robot to drive forward
 
-  double i = 0.0;
-  while (i < (cm * 15.0)) {
+  int i = 0;
+  while (i < (cm * (15 * multiply))) {
     digitalWrite(richtingmotorlinks, HIGH);
     digitalWrite(richtingmotorrechts, HIGH);
     analogWrite(motorlinks, 245);
@@ -253,22 +253,6 @@ double forward(double cm) { // Function to call when u want the robot to drive f
 }
 
 
-int backward(int cm) {// Function to call when u want the robot to drive backwards
-
-  int i = 0;
-
-  while (i < (cm * 500)) {
-    digitalWrite(richtingmotorlinks, LOW);
-    digitalWrite(richtingmotorrechts, LOW);
-    analogWrite(motorlinks, 245);
-    analogWrite(motorrechts, 255);
-    i++;
-    Serial.println(i);
-
-  }
-  motoruit();
-}
-
 void motoruit() {
   analogWrite(motorlinks, 0);
   analogWrite(motorrechts, 0);
@@ -278,7 +262,7 @@ int rotate(int rotation) { // Function to call when u want the robot to drive fo
   double i = 0.0;
   if (rotation > 0) {
 
-    while (i < (rotation * 2)) {
+    while (i < (rotation * (1.6 * multiply))) {
 
       digitalWrite(richtingmotorlinks, HIGH);
       digitalWrite(richtingmotorrechts, LOW);
@@ -291,7 +275,7 @@ int rotate(int rotation) { // Function to call when u want the robot to drive fo
   }
   if (rotation <= 0) {
 
-    while (i < (rotation * 2)) {
+    while (i < (rotation * (1.6 * multiply))) {
       digitalWrite(richtingmotorlinks, LOW);
       digitalWrite(richtingmotorrechts, HIGH);
       analogWrite(motorlinks, 255);
@@ -306,7 +290,7 @@ int rotate(int rotation) { // Function to call when u want the robot to drive fo
 void circle() {// Function to call when u want the robot to draw a circle
 
   int i = 0;
-  while (i < fullCircleTime) {
+  while (i < (fullCircleTime * multiply)) {
     digitalWrite(richtingmotorlinks, HIGH);
     digitalWrite(richtingmotorrechts, LOW);
     analogWrite(motorlinks, 255);
@@ -322,7 +306,7 @@ int halfcircle(int degrees) {// Function to call when u want the robot to draw h
   int i = 0;
 
   if (degrees > 0) {
-    while (i < (fullCircleTime / 2)) {
+    while (i < (fullCircleTime / (2 * multiply))) {
 
       digitalWrite(richtingmotorlinks, HIGH);
       digitalWrite(richtingmotorrechts, LOW);
@@ -334,7 +318,7 @@ int halfcircle(int degrees) {// Function to call when u want the robot to draw h
     motoruit();
   }
   if (degrees <= 0) {
-    while (i < (fullCircleTime / 2)) {
+    while (i < (fullCircleTime / (2 * multiply))) {
       digitalWrite(richtingmotorlinks, LOW);
       digitalWrite(richtingmotorrechts, HIGH);
       analogWrite(motorlinks, 200);
@@ -350,15 +334,14 @@ void displayForward() {
   l = 0;
   m = 0;
 
-  while (l < 400) {
+  while (l < (10 * (15 * multiply))) {
     refreshDisplay(displayBuf[1], displayBuf[0]); // Refreshes the display with the contents of displayBuf
     displayBuf[0] = k;                    // send the updated count to the display buffer
     displayBuf[1] = m;
-    // digitalWrite(richtingmotorlinks, HIGH);
-    //digitalWrite(richtingmotorrechts, HIGH);
-    //analogWrite(motorlinks, 255);
-    // analogWrite(motorrechts, 255); // Vooruit 10 cm
-    // put your main code here, to run repeatedly:
+    digitalWrite(richtingmotorlinks, HIGH);
+    digitalWrite(richtingmotorrechts, HIGH);
+    analogWrite(motorlinks, 255);
+    analogWrite(motorrechts, 255); // Vooruit 10 cm
     l++;
     Serial.println(l);
   }
@@ -399,9 +382,10 @@ void firstLetter() {// Function is used for positioning the robot for the first 
 
       forward(5.0);
       rotate(90);
-      displayForward()
+      displayForward();
       turnLineFound = true;
     }
+
     else {
       forward(0.015);
     }
@@ -517,8 +501,7 @@ void lettersDone() {
 // They will be called in the function: Word
 void letterA() {
 
-  firstLetter();
-
+  pendown();
 }
 
 void letterB() {
