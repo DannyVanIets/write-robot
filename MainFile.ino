@@ -5,6 +5,10 @@ String woord = "a"; // Set your word here
 int fullCircleTime = 1855; //time robot needs to do a full circle
 int i = 0;
 
+int lijn1_BreakPoint = 900;
+int lijn2_BreakPoint = 900; 
+int lijn3_BreakPoint = 900; 
+
 
 uint8_t vooruit = HIGH;
 uint8_t achteruit = LOW;
@@ -278,7 +282,24 @@ void pendown() {// Function to call when u want the robot to push the pen down
 
 void firstLetter() {// Function is used for positioning the robot for the first letter
   // robot starts with this function
-  forward(5);
+  boolean turnLineFound = false;
+  
+  while (!turnLineFound) {
+    if ((digitalRead(lijn1) > lijn1_BreakPoint) && (digitalRead(lijn2) < lijn2_BreakPoint) && (digitalRead(lijn3) < lijn3_BreakPoint)) {
+        rotate(-1);
+      }
+    if ((digitalRead(lijn1) < lijn1_BreakPoint) && (digitalRead(lijn2) < lijn2_BreakPoint) && (digitalRead(lijn3) > lijn3_BreakPoint)) {
+        rotate(1);
+      }
+    if ((digitalRead(lijn1) > lijn1_BreakPoint) && (digitalRead(lijn2) > lijn2_BreakPoint) && (digitalRead(lijn3) > lijn3_BreakPoint)) {
+        forward(2);
+        turnLineFound = true;
+      }
+    else{
+        forward(1);
+      }
+    }
+  
   rotate(-90);
   forward(10);
   pendown();
@@ -287,17 +308,35 @@ void firstLetter() {// Function is used for positioning the robot for the first 
 void afterLetter() {// Function is used for positioning the robot between every letter
   penup();
   boolean lineFound = false;
+  boolean turnLineFound = false;
 
   while (!lineFound) {
     forward(1);
-    if ((digitalRead(lijn1) == LOW) && (digitalRead(lijn2) == LOW) && (digitalRead(lijn3) == LOW)) {
+    if ((digitalRead(lijn1) > lijn1_BreakPoint) && (digitalRead(lijn2) > lijn2_BreakPoint) && (digitalRead(lijn3) > lijn3_BreakPoint)) {
       forward(2);
       lineFound = true;
     }
   }
 
   rotate(-90);
-  forward(5);
+  
+  while (!turnLineFound) {
+    if ((digitalRead(lijn1) > lijn1_BreakPoint) && (digitalRead(lijn2) < lijn2_BreakPoint) && (digitalRead(lijn3) < lijn3_BreakPoint)) {
+        rotate(-1);
+      }
+    if ((digitalRead(lijn1) < lijn1_BreakPoint) && (digitalRead(lijn2) < lijn2_BreakPoint) && (digitalRead(lijn3) > lijn3_BreakPoint)) {
+        rotate(1);
+      } 
+    if ((digitalRead(lijn1) > lijn1_BreakPoint) && (digitalRead(lijn2) > lijn2_BreakPoint) && (digitalRead(lijn3) > lijn3_BreakPoint)) {
+        forward(2);
+        turnLineFound = true;
+      }
+    else{
+        forward(1);
+      }
+    }
+  
+ 
   rotate(-90);
   forward(10);
   pendown();
@@ -309,9 +348,9 @@ void lettersDone() {
   boolean lineFound = false;
   boolean endFound = false;
 
-  while (!lineFound) {
+   while (!lineFound) {
     forward(1);
-    if ((digitalRead(lijn1) == LOW) && (digitalRead(lijn2) == LOW) && (digitalRead(lijn3) == LOW)) {
+    if ((digitalRead(lijn1) > lijn1_BreakPoint) && (digitalRead(lijn2) > lijn2_BreakPoint) && (digitalRead(lijn3) > lijn3_BreakPoint)) {
       forward(2);
       lineFound = true;
     }
@@ -320,20 +359,26 @@ void lettersDone() {
   rotate(-90);
 
   while (!endFound) {
-    forward(1);
-    if ((digitalRead(lijn1) == LOW) && (digitalRead(lijn2) == LOW) && (digitalRead(lijn3) == LOW)) {
-      forward(2);
-      endFound = true;
-      Serial.end();
-    }
-  }
+    if ((digitalRead(lijn1) > lijn1_BreakPoint) && (digitalRead(lijn2) < lijn2_BreakPoint) && (digitalRead(lijn3) < lijn3_BreakPoint)) {
+        rotate(-1);
+      }
+      if ((digitalRead(lijn1) < lijn1_BreakPoint) && (digitalRead(lijn2) < lijn2_BreakPoint) && (digitalRead(lijn3) > lijn3_BreakPoint)) {
+        rotate(1);
+      } 
+      if ((digitalRead(lijn1) > lijn1_BreakPoint) && (digitalRead(lijn2) > lijn2_BreakPoint) && (digitalRead(lijn3) > lijn3_BreakPoint)) {
+        forward(2);
+        endFound = true;
+        Serial.end();
+      }
+    else{
+        forward(1);
+      }
+   }
 }
 
 // Functions for all letters ------------------------------------------------------------
 // They will be called in the function: Word
 void letterA() {
-  
-  pendown();
   
   rotate(45);
   forward(14);
@@ -352,8 +397,6 @@ void letterA() {
 
 void letterB() {
 
-  pendown();
-  
   forward(10);
   rotate(90);
   forward(5);
@@ -374,6 +417,8 @@ void letterB() {
 }
 
 void letterC() {
+  
+  penup();
 
   forward(5);
   rotate(180);
@@ -394,8 +439,6 @@ void letterD() {
 }
 
 void letterE() {
-
-  pendown();
 
   forward(10);
   rotate(90);
@@ -432,8 +475,6 @@ void letterE() {
 
 void letterF() {
 
-  pendown();
-
   forward(10);
   rotate(90);
   forward(5);
@@ -468,8 +509,6 @@ void letterG() {
 
 void letterH() {
 
-  pendown();
-
   forward(10);
 
   penup();
@@ -492,6 +531,8 @@ void letterH() {
 }
 
 void letterI() {
+  
+  penup();
 
   forward(10);
   rotate(90);
@@ -525,8 +566,6 @@ void letterJ() {
 
 void letterK() {
 
-  pendown();
-
   forward(10);
 
   penup();
@@ -554,7 +593,6 @@ void letterK() {
 
 void letterL() {
 
-  pendown();
 
   forward(10);
 
@@ -573,7 +611,6 @@ void letterL() {
 
 void letterM() {
   
-  pendown();
 
   forward(10);
   rotate(135);
@@ -589,7 +626,6 @@ void letterM() {
 
 void letterN() {
 
-  pendown();
 
   forward(10);
   rotate(135);
@@ -624,6 +660,8 @@ void letterP() {
 }
 
 void letterQ() {
+  
+  penup();
 
   rotate(90);
   forward(5);
@@ -643,7 +681,6 @@ void letterQ() {
 }
 
 void letterR() {
-  pendown();
 
   forward(10);
   
@@ -674,6 +711,8 @@ void letterS() {
 }
 
 void letterT() {
+  
+  penup();
 
   rotate(90);
   forward(5);
@@ -701,6 +740,8 @@ void letterU() {
 }
 
 void letterV() {
+  
+  penup();
 
   forward(10);
   rotate(135);
@@ -719,6 +760,8 @@ void letterV() {
 }
 
 void letterW() {
+  
+  penup();
 
   forward(10);
   rotate(180);
@@ -741,6 +784,8 @@ void letterW() {
 }
 
 void letterX() {
+  
+  penup();
 
   rotate(45);
 
@@ -765,6 +810,8 @@ void letterX() {
 }
 
 void letterY() {
+  
+  penup();
 
   rotate(90);
   forward(5);
@@ -794,6 +841,8 @@ void letterY() {
 }
 
 void letterZ() {
+  
+  penup();
 
   forward(10);
   rotate(90);
