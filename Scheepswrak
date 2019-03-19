@@ -1,8 +1,10 @@
 #include "Servo.h"
 Servo pen;
 
-String woord = "b"; // Set your word here
-int fullCircleTime = 1267; //time robot needs to do a full circle
+int multiply = 1;
+
+String woord = "a"; // Set your word here
+int fullCircleTime = 1200; //time robot needs to do a full circle
 int i = 0;
 
 int lijn1_BreakPoint = 800; // linkerSensor
@@ -56,6 +58,7 @@ void setup() {
   pinMode(lijn2, INPUT);
   pinMode(lijn3, INPUT);
   // Assign pinmode
+  pendown();
 
 }
 
@@ -68,7 +71,6 @@ void buttonPressed() {
   int buttonState = digitalRead(button);
 
   if ((buttonState == 1) && (i <= 0)) {
-    pendown();
     Word();
     i++;
   }
@@ -77,7 +79,6 @@ void buttonPressed() {
 
 String Word() {
 
-  firstLetter();
 
   while (woord[count] != '\0') {
     count++;
@@ -181,8 +182,8 @@ String Word() {
 
 double forward(double cm) { // Function to call when u want the robot to drive forward
 
-  double i = 0.0;
-  while (i < (cm * 15.0)) {
+  int i = 0;
+  while (i < (cm * (15 * multiply))) {
     digitalWrite(richtingmotorlinks, HIGH);
     digitalWrite(richtingmotorrechts, HIGH);
     analogWrite(motorlinks, 245);
@@ -195,22 +196,6 @@ double forward(double cm) { // Function to call when u want the robot to drive f
 }
 
 
-int backward(int cm) {// Function to call when u want the robot to drive backwards
-
-  int i = 0;
-
-  while (i < (cm * 500)) {
-    digitalWrite(richtingmotorlinks, LOW);
-    digitalWrite(richtingmotorrechts, LOW);
-    analogWrite(motorlinks, 245);
-    analogWrite(motorrechts, 255);
-    i++;
-    Serial.println(i);
-
-  }
-  motoruit();
-}
-
 void motoruit() {
   analogWrite(motorlinks, 0);
   analogWrite(motorrechts, 0);
@@ -220,7 +205,7 @@ int rotate(int rotation) { // Function to call when u want the robot to drive fo
   double i = 0.0;
   if (rotation > 0) {
 
-    while (i < (rotation * 2)) {
+    while (i < (rotation * (1.6 * multiply))) {
 
       digitalWrite(richtingmotorlinks, HIGH);
       digitalWrite(richtingmotorrechts, LOW);
@@ -233,7 +218,7 @@ int rotate(int rotation) { // Function to call when u want the robot to drive fo
   }
   if (rotation <= 0) {
 
-    while (i < (rotation * 2)) {
+    while (i < (rotation * (1.6 * multiply))) {
       digitalWrite(richtingmotorlinks, LOW);
       digitalWrite(richtingmotorrechts, HIGH);
       analogWrite(motorlinks, 255);
@@ -248,7 +233,7 @@ int rotate(int rotation) { // Function to call when u want the robot to drive fo
 void circle() {// Function to call when u want the robot to draw a circle
 
   int i = 0;
-  while (i < fullCircleTime) {
+  while (i < (fullCircleTime * multiply)) {
     digitalWrite(richtingmotorlinks, HIGH);
     digitalWrite(richtingmotorrechts, LOW);
     analogWrite(motorlinks, 255);
@@ -264,7 +249,7 @@ int halfcircle(int degrees) {// Function to call when u want the robot to draw h
   int i = 0;
 
   if (degrees > 0) {
-    while (i < (fullCircleTime / 2)) {
+    while (i < (fullCircleTime / (2 * multiply))) {
 
       digitalWrite(richtingmotorlinks, HIGH);
       digitalWrite(richtingmotorrechts, LOW);
@@ -276,7 +261,7 @@ int halfcircle(int degrees) {// Function to call when u want the robot to draw h
     motoruit();
   }
   if (degrees <= 0) {
-    while (i < (fullCircleTime / 2)) {
+    while (i < (fullCircleTime / (2 * multiply))) {
       digitalWrite(richtingmotorlinks, LOW);
       digitalWrite(richtingmotorrechts, HIGH);
       analogWrite(motorlinks, 200);
@@ -431,7 +416,8 @@ void lettersDone() {
 // They will be called in the function: Word
 void letterA() {
 
-  firstLetter();
+  pendown();
+  halfcircle(180);
 
 }
 
