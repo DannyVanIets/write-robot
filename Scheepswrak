@@ -508,15 +508,15 @@ void letterA() { //
 
   forward(10);
   penup();
-  rotate(360);
+  rotate(180);
 
   forward(3);
-  rotate(-45);
+  rotate(-90);
   pendown();
 
   forward(4);
   penup();
-  rotate(90);
+  rotate(-90);
   
   afterLetter();
 }
@@ -533,12 +533,11 @@ void letterC() {
 
   penup();
 
-  forward(5);
-  rotate(180);
+  rotate(-90);
 
   pendown();
 
-  halfcircle(-1);
+  halfcircle(1);
 
   penup();
 
@@ -550,10 +549,7 @@ void letterC() {
 void letterD() {
   pendown();
   forward(7);
-  penup();
-  
   rotate(90);
-  pendown();
   halfcircle(1);
 
   penup();
@@ -564,33 +560,32 @@ void letterD() {
 
 void letterE() {
 
+  pendown();
+  
   forward(10);
   rotate(90);
   forward(5);
 
   penup();
 
-  rotate(180);
+  rotate(90);
   forward(5);
-  rotate(-90);
-  forward(5);
-  rotate(-90);
+  rotate(90);
 
   pendown();
-
-  forward(2);
+  
+  forward(5);
+  rotate(-90);
 
   penup();
 
-  rotate(180);
-  forward(2);
-  rotate(-90);
   forward(5);
   rotate(-90);
-
+  
   pendown();
-
+  
   forward(5);
+  rotate(90);
 
   penup();
 
@@ -599,44 +594,44 @@ void letterE() {
 
 void letterF() {
 
+  pendown();
+  
   forward(10);
   rotate(90);
   forward(5);
 
   penup();
 
-  rotate(180);
+  rotate(90);
   forward(5);
-  rotate(-90);
-  forward(5);
-  rotate(-90);
+  rotate(90);
 
   pendown();
 
-  forward(2);
-
-  penup();
-
-  rotate(180);
-  forward(2);
-  rotate(-90);
   forward(5);
   rotate(-90);
 
+  penup();
+  
   afterLetter();
 }
 
 void letterG() {
   penup();
+  
   rotate(-90);
+  
   pendown();
+  
   halfcircle(1);
   
   penup();
+  
   rotate(90);
   forward(2);
 
   pendown();
+  
   forward(5);
   penup();
   
@@ -668,29 +663,12 @@ void letterH() {
 
 void letterI() {
 
-  penup();
-
-  forward(10);
-  rotate(90);
-
   pendown();
 
-  forward(6);
+  forward(7);
+  rotate(180);
 
   penup();
-
-  rotate(180);
-  forward(3);
-  rotate(-90);
-
-  pendown();
-
-  forward(10);
-
-  rotate(-90);
-  forward(3);
-  rotate(180);
-  forward(6);
 
   afterLetter();
 }
@@ -712,13 +690,15 @@ void letterJ() {
 
 void letterK() {
 
+  pendown();
+  
   forward(10);
 
   penup();
 
   rotate(180);
   forward(5);
-  rotate(135);
+  rotate(-135);
 
   pendown();
 
@@ -733,11 +713,18 @@ void letterK() {
   pendown();
 
   forward(7);
+
+  penup();
+
+  rotate(35);
 
   afterLetter();
 }
 
 void letterL() {
+
+  pendown();
+  
   forward(10);
 
   penup();
@@ -750,10 +737,15 @@ void letterL() {
 
   forward(5);
 
+  rotate(90);
+
   afterLetter();
 }
 
 void letterM() {
+
+  pendown();
+  
   forward(10);
   rotate(135);
   forward(12);
@@ -768,6 +760,8 @@ void letterM() {
 }
 
 void letterN() {
+  pendown();
+  
   forward(10);
   rotate(135);
   forward(12);
@@ -782,108 +776,120 @@ void letterN() {
 }
 
 void letterO() {
-
+  pendown();
+  
   circle();
 
+  penup();
+  
   afterLetter();
 }
 
 void letterP() {
   pendown();
-  forward(15);
+  
+  forward(12);
+  
   penup();
 
   rotate(90);
+  
   pendown();
+  
   halfcircle(1);
+
+  penup();
+  
+  rotate(-90);
   
   afterLetter();
 }
 
 void letterQ() {
 
-  penup();
-
-  rotate(90);
-  forward(5);
-  rotate(-90);
-
   pendown();
 
   forward(3);
-  rotate(90);
+  rotate(-90);
   circle();
 
   penup();
 
-  rotate(90);
+  rotate(-90);
 
   afterLetter();
 }
 
 void letterR() {
-  penup();
-
-  forward(100);
-
-  rotate(90);
-  forward(5);
-  halfcircle(-1);
-  forward(5);
 
   pendown();
 
-  rotate(180);
-  forward(5);
-  rotate(45);
+  forward(10);
+
+  rotate(90);
+  halfcircle(1);
 
   penup();
+
+  rotate(180);
+  forward(3);
+  rotate(45);
+
+  pendown();
 
   forward(6);
 
   penup();
-  rotate(-45);
+  rotate(45);
 
   afterLetter();
 }
 
 void letterS() {
-  penup();
-  rotate(-90);
-  halfcircle(-1);
   
+  pendown();
+  
+  rotate(90);
+  halfcircle(-1);
   halfcircle(1);
+
   penup();
-  rotate(-90);
+  rotate(90);
   
   afterLetter();
 }
 
 void letterT() {
 
+  pendown();
+  
   forward(10);
-  penup();
   rotate(-90);
   forward(5);
   rotate(180);
-  pendown();
   forward(10);
+  
   penup();
+  
   rotate(90);
 
   afterLetter();
 }
 
 void letterU() {
-  penup();
-  rotate(360);
+  
   pendown();
 
+  forward(10);
+  rotate(180);
+  forward(10);
+  rotate(-90);
   forward(5);
-  halfcircle(-1);
-  forward(5);
+  rotate(-90);
+  forward(10);
 
   penup();
+  
   rotate(180);
   
   afterLetter();
@@ -954,18 +960,13 @@ void letterX() {
   forward(12);
 
   penup();
+  
   rotate(35);
 
   afterLetter();
 }
 
 void letterY() {
-
-  penup();
-
-  rotate(90);
-  forward(5);
-  rotate(-90);
 
   pendown();
 
@@ -975,9 +976,9 @@ void letterY() {
 
   penup();
 
-  rotate(180);
-  forward(4);
-  rotate(-90);
+  rotate(135);
+  forward(7);
+  rotate(135);
 
   pendown();
 
@@ -985,7 +986,7 @@ void letterY() {
 
   penup();
 
-  rotate(135);
+  rotate(-45);
 
   afterLetter();
 }
@@ -1006,6 +1007,8 @@ void letterZ() {
   forward(10);
 
   penup();
+
+  rotate(90);
 
   afterLetter();
 }
