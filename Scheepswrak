@@ -257,6 +257,7 @@ double forward(double cm) { // Function to call when u want the robot to drive f
 void motoruit() {
   analogWrite(motorlinks, 0);
   analogWrite(motorrechts, 0);
+  delay(1000);
 }
 
 int rotate(int rotation) { // Function to call when u want the robot to drive forward
@@ -307,7 +308,7 @@ int halfcircle(int degrees) {// Function to call when u want the robot to draw h
   int i = 0;
 
   if (degrees > 0) {
-    while (i < (fullCircleTime / (2 * multiply))) {
+    while (i < (fullCircleTime * multiply) / 2)) {
 
       digitalWrite(richtingmotorlinks, HIGH);
       digitalWrite(richtingmotorrechts, LOW);
@@ -319,7 +320,7 @@ int halfcircle(int degrees) {// Function to call when u want the robot to draw h
     motoruit();
   }
   if (degrees <= 0) {
-    while (i < (fullCircleTime / (2 * multiply))) {
+    while (i < (fullCircleTime * multiply) / 2)) {
       digitalWrite(richtingmotorlinks, LOW);
       digitalWrite(richtingmotorrechts, HIGH);
       analogWrite(motorlinks, 200);
@@ -375,9 +376,11 @@ void firstLetter() {// Function is used for positioning the robot for the first 
   boolean turnLineFound = false;
   while (!turnLineFound) {
 
+    delay(100);
     lijn1_value = analogRead(lijn1);
     lijn2_value = analogRead(lijn2);
     lijn3_value = analogRead(lijn3);
+    delay(100);
 
     if (lijn1_value > lijn1_BreakPoint && lijn2_value > lijn2_BreakPoint && lijn3_value > lijn3_BreakPoint) {
 
@@ -399,9 +402,11 @@ void afterLetter() {// Function is used for positioning the robot between every 
   boolean turnLineFound = false;
   while (!lineFound) {
 
+    delay(100);
     lijn1_value = analogRead(lijn1);
     lijn2_value = analogRead(lijn2);
     lijn3_value = analogRead(lijn3);
+    delay(100);
 
     if (lengtewoord == count) {
       lettersDone();
@@ -414,9 +419,11 @@ void afterLetter() {// Function is used for positioning the robot between every 
 
       while (!turnLineFound) {
 
+        delay(100);
         lijn1_value = analogRead(lijn1);
         lijn2_value = analogRead(lijn2);
         lijn3_value = analogRead(lijn3);
+        delay(100);
 
         if (lijn1_value > lijn1_BreakPoint) {
           rotate(-1);
