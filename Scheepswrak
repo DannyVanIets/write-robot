@@ -1,19 +1,19 @@
 #include "Servo.h"
 Servo pen;
 
-int multiply = 1;
+double multiply = 0.84;
 
-String woord = "b"; // Set your word here
-int fullCircleTime = 1150; //time robot needs to do a full circle
+String woord = "bot"; // Set your word here
+int fullCircleTime = 1600; //time robot needs to do a full circle
 
 int i = 0;
 int l = 0;
 int k = 1;
 int m = 0;
 
-int lijn1_BreakPoint = 800; // linkerSensor
-int lijn2_BreakPoint = 800; // middenSensor
-int lijn3_BreakPoint = 800; // rechterSensor
+int lijn1_BreakPoint = 825; // linkerSensor
+int lijn2_BreakPoint = 825; // middenSensor
+int lijn3_BreakPoint = 825; // rechterSensor
 
 int lijn1_value = 0;
 int lijn2_value = 0;
@@ -232,7 +232,8 @@ String Word() {
 
   }
 
-  // lettersDone(); // Robot is done writing and goes in to a corner.
+  Serial.println("IAM DEAD!");
+  
 }
 
 
@@ -245,7 +246,7 @@ double forward(double cm) { // Function to call when u want the robot to drive f
   while (i < (cm * (15 * multiply))) {
     digitalWrite(richtingmotorlinks, HIGH);
     digitalWrite(richtingmotorrechts, HIGH);
-    analogWrite(motorlinks, 245);
+    analogWrite(motorlinks, 255);
     analogWrite(motorrechts, 255);
     i++;
     Serial.println(i);
@@ -258,7 +259,6 @@ double forward(double cm) { // Function to call when u want the robot to drive f
 void motoruit() {
   analogWrite(motorlinks, 0);
   analogWrite(motorrechts, 0);
-  delay(1000);
 }
 
 int rotate(int rotation) { // Function to call when u want the robot to drive forward
@@ -394,6 +394,7 @@ void firstLetter() {// Function is used for positioning the robot for the first 
 
       turnLineFound = true;
       forward(10);
+      delay(100);
       rotate(-90);
       displayForward();
     }
@@ -413,6 +414,11 @@ void afterLetter() {// Function is used for positioning the robot between every 
   lijn2_value = 0;
   lijn3_value = 0;
 
+   if (lengtewoord == count) {
+      lettersDone();
+    }
+
+
   while (!lineFound) {
     
     lijn1_value = analogRead(lijn1);
@@ -422,9 +428,70 @@ void afterLetter() {// Function is used for positioning the robot between every 
     Serial.println(lijn2_value);
     Serial.println(lijn3_value);
 
-    //if (lengtewoord == count) {
-      //lettersDone();
-    //}
+   
+    if (lijn1_value > lijn1_BreakPoint && lijn2_value > lijn2_BreakPoint && lijn3_value > lijn3_BreakPoint) {
+
+      forward(10);
+      delay(100);
+      rotate(-90);
+
+      while (!turnLineFound) {
+
+        lijn1_value = analogRead(lijn1);
+        lijn2_value = analogRead(lijn2);
+        lijn3_value = analogRead(lijn3);
+        Serial.println(lijn1_value);
+        Serial.println(lijn2_value);
+        Serial.println(lijn3_value);
+
+        Serial.println("forward");
+       
+
+        if (lijn1_value > lijn1_BreakPoint && lijn3_value < lijn3_BreakPoint) {
+          rotate(-10);
+        }
+        if (lijn1_value < lijn1_BreakPoint && lijn3_value > lijn3_BreakPoint) {
+          rotate(10);
+        }
+        
+        if (lijn1_value > lijn1_BreakPoint && lijn2_value > lijn2_BreakPoint && lijn3_value > lijn3_BreakPoint) {
+         turnLineFound = true;
+         lineFound = true;
+         forward(10);
+         delay(100);
+         rotate(-90);
+         displayForward();
+        }
+        else {
+          forward(10);
+        }
+      }
+    }
+    else {
+      forward(10);
+    }
+  }
+}
+
+void lettersDone() {// Function is used for positioning the robot between every letter
+  penup();
+  
+  boolean lineFound = false;
+  boolean turnLineFound = false;
+
+  lijn1_value = 0;
+  lijn2_value = 0;
+  lijn3_value = 0;
+
+  while (!lineFound) {
+    
+    lijn1_value = analogRead(lijn1);
+    lijn2_value = analogRead(lijn2);
+    lijn3_value = analogRead(lijn3);
+    Serial.println(lijn1_value);
+    Serial.println(lijn2_value);
+    Serial.println(lijn3_value);
+
 
     if (lijn1_value > lijn1_BreakPoint && lijn2_value > lijn2_BreakPoint && lijn3_value > lijn3_BreakPoint) {
 
@@ -439,21 +506,24 @@ void afterLetter() {// Function is used for positioning the robot between every 
         Serial.println(lijn1_value);
         Serial.println(lijn2_value);
         Serial.println(lijn3_value);
+
+        Serial.println("done");
        
 
         if (lijn1_value > lijn1_BreakPoint && lijn3_value < lijn3_BreakPoint) {
-          rotate(-1);
+          rotate(-10);
         }
         if (lijn1_value < lijn1_BreakPoint && lijn3_value > lijn3_BreakPoint) {
-          rotate(1);
+          rotate(10);
         }
         
-        //if (lijn1_value > lijn1_BreakPoint && lijn2_value > lijn2_BreakPoint && lijn3_value > lijn3_BreakPoint) {
-         // rotate(-90);
-         // displayForward();
-         // lineFound = true;
-          //turnLineFound = true;
-        //}
+        if (lijn1_value > lijn1_BreakPoint && lijn2_value > lijn2_BreakPoint && lijn3_value > lijn3_BreakPoint) {
+
+         forward(10);
+          
+         lineFound = true;
+         turnLineFound = true;
+        }
         else {
           forward(10);
         }
@@ -461,52 +531,6 @@ void afterLetter() {// Function is used for positioning the robot between every 
     }
     else {
       forward(10);
-    }
-  }
-}
-
-void lettersDone() {// Function is used for positioning the robot between every letter
-  penup();
-  boolean lineFound = false;
-  boolean turnLineFound = false;
-  while (!lineFound) {
-
-    lijn1_value = analogRead(lijn1);
-    lijn2_value = analogRead(lijn2);
-    lijn3_value = analogRead(lijn3);
-
-    if (lengtewoord == count) {
-      lettersDone();
-    }
-
-    if (lijn1_value > lijn1_BreakPoint && lijn2_value > lijn2_BreakPoint && lijn3_value > lijn3_BreakPoint) {
-
-      forward(5.0);
-      rotate(-90);
-
-      while (!turnLineFound) {
-
-        lijn1_value = analogRead(lijn1);
-        lijn2_value = analogRead(lijn2);
-        lijn3_value = analogRead(lijn3);
-
-        if (lijn1_value > lijn1_BreakPoint) {
-          rotate(-1);
-        }
-        if (lijn1_value < lijn1_BreakPoint) {
-          rotate(1);
-        }
-        if (lijn1_value > lijn1_BreakPoint && lijn2_value > lijn2_BreakPoint && lijn3_value > lijn3_BreakPoint) {
-          lineFound = true;
-          turnLineFound = true;
-        }
-        else {
-          forward(0.015);
-        }
-      }
-    }
-    else {
-      forward(0.015);
     }
   }
 }
@@ -541,26 +565,39 @@ void letterA() { //
 void letterB() {
 
   pendown();
-  circle();
-  forward(15);
 
+  circle();
+
+  forward(20);
+
+  penup();
+
+  rotate(180);
+  
+  afterLetter();
 }
 
 void letterC() {
 
-  penup();
-
-  rotate(-90);
-
   pendown();
-
-  halfcircle(1);
-
-  penup();
-
   rotate(90);
-
+  forward(10);
+  rotate(90);
   afterLetter();
+
+  //penup();
+
+  //rotate(-90);
+
+  //pendown();
+
+  //halfcircle(1);
+
+  //penup();
+
+  //rotate(90);
+
+  //afterLetter();
 }
 
 void letterD() {
@@ -793,11 +830,16 @@ void letterN() {
 }
 
 void letterO() {
+
+  forward(15);
+  
   pendown();
   
   circle();
 
   penup();
+
+  halfcircle(1);
   
   afterLetter();
 }
@@ -880,17 +922,34 @@ void letterT() {
 
   pendown();
   
+  forward(30);
+
+  penup();
+
   forward(10);
+  
   rotate(-90);
-  forward(5);
-  rotate(180);
+  
   forward(10);
+  
+  rotate(-90);
+
+  forward(10);
+
+  rotate(-90);
+
+  pendown();
+  
+  forward(25);
   
   penup();
   
   rotate(90);
 
-  afterLetter();
+  rotate(30);
+
+  
+  lettersDone();
 }
 
 void letterU() {
