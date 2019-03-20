@@ -308,7 +308,7 @@ int halfcircle(int degrees) {// Function to call when u want the robot to draw h
   int i = 0;
 
   if (degrees > 0) {
-    while (i < (fullCircleTime * multiply) / 2)) {
+    while (i < (fullCircleTime * multiply) / 2) {
 
       digitalWrite(richtingmotorlinks, HIGH);
       digitalWrite(richtingmotorrechts, LOW);
@@ -320,7 +320,7 @@ int halfcircle(int degrees) {// Function to call when u want the robot to draw h
     motoruit();
   }
   if (degrees <= 0) {
-    while (i < (fullCircleTime * multiply) / 2)) {
+    while (i < (fullCircleTime * multiply) / 2) {
       digitalWrite(richtingmotorlinks, LOW);
       digitalWrite(richtingmotorrechts, HIGH);
       analogWrite(motorlinks, 200);
@@ -508,7 +508,7 @@ void letterA() { //
 
   forward(10);
   penup();
-  rotate(360):
+  rotate(360);
 
   forward(3);
   rotate(-45);
