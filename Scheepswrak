@@ -497,9 +497,28 @@ void lettersDone() {// Function is used for positioning the robot between every 
 
 // Functions for all letters ------------------------------------------------------------
 // They will be called in the function: Word
-void letterA() {
-
+void letterA() { // 
+  penup();
+  rotate(45);
+  forward(10);
+  
+  penup();
+  rotate(90);
   pendown();
+
+  forward(10);
+  penup();
+  rotate(360):
+
+  forward(3);
+  rotate(-45);
+  pendown();
+
+  forward(4);
+  penup();
+  rotate(90);
+  
+  afterLetter();
 }
 
 void letterB() {
@@ -529,6 +548,17 @@ void letterC() {
 }
 
 void letterD() {
+  pendown();
+  forward(7);
+  penup();
+  
+  rotate(90);
+  pendown();
+  halfcircle(1);
+
+  penup();
+  rotate(-90);
+  
   afterLetter();
 }
 
@@ -597,7 +627,19 @@ void letterF() {
 }
 
 void letterG() {
-  Serial.print("De robot schrijft letter G \n");
+  penup();
+  rotate(-90);
+  pendown();
+  halfcircle(1);
+  
+  penup();
+  rotate(90);
+  forward(2);
+
+  pendown();
+  forward(5);
+  penup();
+  
   afterLetter();
 }
 
@@ -654,7 +696,17 @@ void letterI() {
 }
 
 void letterJ() {
-  Serial.print("De robot schrijft letter J \n");
+  penup();
+  forward(10);
+  rotate(360);
+
+  pendown();
+  forward(7);
+  halfcircle(1);
+
+  penup();
+  rotate(180);
+  
   afterLetter();
 }
 
@@ -686,8 +738,6 @@ void letterK() {
 }
 
 void letterL() {
-
-
   forward(10);
 
   penup();
@@ -704,23 +754,20 @@ void letterL() {
 }
 
 void letterM() {
-
-
   forward(10);
   rotate(135);
   forward(12);
+  
   rotate(-90);
   forward(12);
   rotate(135);
+  
   forward(10);
-
-
+  
   afterLetter();
 }
 
 void letterN() {
-
-
   forward(10);
   rotate(135);
   forward(12);
@@ -738,10 +785,18 @@ void letterO() {
 
   circle();
 
+  afterLetter();
 }
 
 void letterP() {
-  Serial.print("De robot schrijft letter P \n");
+  pendown();
+  forward(15);
+  penup();
+
+  rotate(90);
+  pendown();
+  halfcircle(1);
+  
   afterLetter();
 }
 
@@ -767,7 +822,6 @@ void letterQ() {
 }
 
 void letterR() {
-
   penup();
 
   forward(100);
@@ -776,7 +830,6 @@ void letterR() {
   forward(5);
   halfcircle(-1);
   forward(5);
-
 
   pendown();
 
@@ -791,11 +844,18 @@ void letterR() {
   penup();
   rotate(-45);
 
-  //afterLetter();
+  afterLetter();
 }
 
 void letterS() {
-  Serial.print("De robot schrijft letter S \n");
+  penup();
+  rotate(-90);
+  halfcircle(-1);
+  
+  halfcircle(1);
+  penup();
+  rotate(-90);
+  
   afterLetter();
 }
 
@@ -811,10 +871,21 @@ void letterT() {
   penup();
   rotate(90);
 
+  afterLetter();
 }
 
 void letterU() {
-  Serial.print("De robot schrijft letter U \n");
+  penup();
+  rotate(360);
+  pendown();
+
+  forward(5);
+  halfcircle(-1);
+  forward(5);
+
+  penup();
+  rotate(180);
+  
   afterLetter();
 }
 
